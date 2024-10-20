@@ -5,7 +5,7 @@ from pages.main_page import MainPage
 class TestLogo:
 
     @allure.description(
-        'Проверяем клик на лого')
+        'Проверяем клик на лого:самоат и Яндекс')
 
     @allure.step('Проверяем, что при клик на лого «Самокат» переход на главную стр')
     def test_logo_samokat(self, driver):

@@ -1,26 +1,20 @@
-import allure
 import pytest
-from pages.main_page import MainPage
+import allure
+from pages.main_page import MainPage, MainPageLocators
 from data import ANSWER_TEXTS
 
+@allure.description(
+        'Проверяем соответствие ответов на вопросы')
+@pytest.mark.parametrize(
+    'num, expected_answer',
+    [(i, text) for i, text in enumerate(ANSWER_TEXTS)]
+)
+def test_questions_and_answers(driver, num, expected_answer):
+    main_page = MainPage(driver)
+    question_locator = (MainPageLocators.FAQ_QUESTIONS[0], MainPageLocators.FAQ_QUESTIONS[1].format(num))
+    answer_locator = (MainPageLocators.FAQ_ANSWERS[0], MainPageLocators.FAQ_ANSWERS[1].format(num))
 
-class TestMainPage:
+    main_page.click_element_with_wait(question_locator)
 
-    @allure.description('Проверяем, что при клике на вопрос ответ правильный')
-    @pytest.mark.parametrize(
-        'num, expected_answer',
-        [
-            (0, ANSWER_TEXTS[0]),
-            (1, ANSWER_TEXTS[1]),
-            (2, ANSWER_TEXTS[2]),
-            (3, ANSWER_TEXTS[3]),
-            (4, ANSWER_TEXTS[4]),
-            (5, ANSWER_TEXTS[5]),
-            (6, ANSWER_TEXTS[6]),
-            (7, ANSWER_TEXTS[7])
-        ]
-    )
-    def test_questions_and_answers(self, driver, num, expected_answer):
-        main_page = MainPage(driver)
-        assert main_page.get_answer_text(num) == expected_answer
-
+    answer = main_page.find_element_with_wait(answer_locator)
+    assert answer.text == expected_answer

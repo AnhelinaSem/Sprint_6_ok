@@ -33,20 +33,18 @@ class OrderPage:
         self.driver.find_element(*OrderPageLocators.NEXT_BUTTON).click()
 
     def fill_rental_form(self, date, period, color, comment):
-        # Fill in the date
+
         date_input = WebDriverWait(self.driver, 10).until(
             expected_conditions.element_to_be_clickable(OrderPageLocators.DATE_INPUT)
         )
         date_input.clear()
         date_input.send_keys(date)
-        date_input.send_keys(Keys.ENTER)  # Close the date picker
+        date_input.send_keys(Keys.ENTER)
 
-        # Wait for the date picker to disappear
         WebDriverWait(self.driver, 10).until(
             expected_conditions.invisibility_of_element_located((By.CLASS_NAME, "react-datepicker"))
         )
 
-        # Select rental period
         rental_dropdown = WebDriverWait(self.driver, 10).until(
             expected_conditions.element_to_be_clickable(OrderPageLocators.RENTAL_PERIOD_DROPDOWN)
         )
@@ -57,13 +55,10 @@ class OrderPage:
         )
         period_option.click()
 
-        # Select color
         self.driver.find_element(*OrderPageLocators.COLOR_CHECKBOX).click()
 
-        # Add comment
         self.driver.find_element(*OrderPageLocators.COMMENT_INPUT).send_keys(comment)
 
-        # Click order button
         order_button = WebDriverWait(self.driver, 10).until(
             expected_conditions.element_to_be_clickable(OrderPageLocators.ORDER_BUTTON)
         )
@@ -72,12 +67,3 @@ class OrderPage:
     def check_success_message(self):
         return self.driver.find_element(*OrderPageLocators.SUCCESS_MESSAGE).is_displayed()
 
-    def confirm_order(self):
-        WebDriverWait(self.driver, 3).until(
-            expected_conditions.visibility_of_element_located(OrderPageLocators.CONFIRM_BUTTON))
-        self.driver.find_element(*OrderPageLocators.CONFIRM_BUTTON).click()
-
-    def get_success_message(self):
-        WebDriverWait(self.driver, 3).until(
-            expected_conditions.visibility_of_element_located(OrderPageLocators.SUCCESS_MESSAGE))
-        return self.driver.find_element(*OrderPageLocators.SUCCESS_MESSAGE).text
