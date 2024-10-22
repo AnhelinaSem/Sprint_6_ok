@@ -13,8 +13,6 @@ def test_questions_and_answers(driver, num, expected_answer):
     main_page = MainPage(driver)
     question_locator = (MainPageLocators.FAQ_QUESTIONS[0], MainPageLocators.FAQ_QUESTIONS[1].format(num))
     answer_locator = (MainPageLocators.FAQ_ANSWERS[0], MainPageLocators.FAQ_ANSWERS[1].format(num))
-
     main_page.click_element_with_wait(question_locator)
-
     answer = main_page.find_element_with_wait(answer_locator)
     assert answer.text == expected_answer

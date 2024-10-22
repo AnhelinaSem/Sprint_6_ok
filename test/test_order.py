@@ -13,7 +13,6 @@ class TestOrder:
     def test_order_form_top(self, driver, name, surname, address, metro, phone, date, period, color, comment):
         main_page = MainPage(driver)
         order_page = OrderPage(driver)
-
         main_page.click_order_button_top()
         order_page.fill_order_form(name, surname, address, metro, phone)
         order_page.fill_rental_form(date, period, color, comment)
@@ -27,7 +26,6 @@ class TestOrder:
     def test_order_form_middle(self, driver, name, surname, address, metro, phone, date, period, color, comment):
         main_page = MainPage(driver)
         order_page = OrderPage(driver)
-
         main_page.click_order_button_middle()
         order_page.fill_order_form(name, surname, address, metro, phone)
         order_page.fill_rental_form(date, period, color, comment)

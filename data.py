@@ -1,3 +1,4 @@
+BASE_URL = 'https://qa-scooter.praktikum-services.ru/'
 
 ANSWER_TEXTS = [
     "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
